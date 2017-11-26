@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.ArrayList;
 
@@ -17,11 +19,22 @@ public class TodoDemoController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        ArrayList<TodoItem> todoList = (ArrayList<TodoItem>) repository.findAll();
-        //model.addAttribute("items", todoList);
+
+        TodoItem item1 = new TodoItem();
+        item1.setId((long)1);
+        item1.setComplete(true);
+        item1.setName("blabla");
+        item1.setCategory("kategoria");
+        ArrayList<TodoItem> todoList = new ArrayList<TodoItem>();
+        todoList.add(item1);
+
+
+      //  ArrayList<TodoItem> todoList = (ArrayList<TodoItem>) repository.findAll();
+        model.addAttribute("items", todoList);
         model.addAttribute("newitem", new TodoItem());
         model.addAttribute("items", new TodoListViewModel(todoList));
         return "index";
+        //return "Greetings from Spring Boot!";
     }
 
     @RequestMapping("/add")
